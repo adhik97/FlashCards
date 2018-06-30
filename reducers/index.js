@@ -1,9 +1,9 @@
-import { ADD_DECK,GET_DECKS } from '../actions'
+import { ADD_DECK,GET_DECKS,ADD_CARD } from '../actions'
 import update from 'immutability-helper'
 
 export default function decks(state={},action){
 
-	const {key,title,payload} = action
+	const {key,title,payload,card} = action
 
 	switch(action.type){
 
@@ -12,9 +12,13 @@ export default function decks(state={},action){
 			return update(payload,{$merge:{...state}})
 
 		case ADD_DECK:
-
 			return update(state,{$merge:{[key]:{title,questions:[]}}})
 
+		case ADD_CARD:
+			return update(state,{
+				[key]:{
+					questions: {$push: [card]}
+				}})
 					
 		default:
 			return state

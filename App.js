@@ -2,12 +2,15 @@ import React from 'react'
 import { Platform } from 'react-native'
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
-import { createBottomTabNavigator,createMaterialTopTabNavigator } from 'react-navigation'
+import Deck from './components/Deck'
+import AddCard from './components/AddCard'
+import { createBottomTabNavigator,createMaterialTopTabNavigator,createStackNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 import {createStore} from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import {white,black,grey} from './utils/colors'
+
 
 
 
@@ -34,10 +37,10 @@ const Tabs = TabCreator({
     header: null
   },
   tabBarOptions: {
-    activeTintColor: black,
+    activeTintColor: Platform.OS === 'ios' ? black : white,
     style: {
       height: 56,
-      backgroundColor: grey,
+      backgroundColor: Platform.OS === 'ios' ? white : black,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
@@ -49,6 +52,21 @@ const Tabs = TabCreator({
   }
 })
 
+const MainNavigator=createStackNavigator({
+  Home:{
+    screen:Tabs,
+    navigationOptions: {
+    header: null
+    }
+  },
+  Deck:{
+    screen:Deck
+  },
+  AddCard:{
+    screen:AddCard
+  }
+})
+
 
 
 export default class App extends React.Component {
@@ -56,7 +74,7 @@ export default class App extends React.Component {
 
     return (
     <Provider store={createStore(reducer)}>
-      <Tabs/>
+      <MainNavigator/>
     </Provider>
           )
   }

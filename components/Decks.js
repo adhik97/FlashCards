@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { View,Text,StyleSheet,Platform } from 'react-native'
+import { View,Text,StyleSheet,Platform,TouchableOpacity } from 'react-native'
 import { black,grey } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
@@ -22,11 +22,11 @@ function NoDecks(){
 
 
 
-function DeckCard({title,numberOfCards}){
-	return <View style={styles.cardView}>
+function DeckCard({id,title,numberOfCards,navigation}){
+	return <TouchableOpacity onPress={() => navigation.navigate('Deck',{key:id,title})} style={styles.cardView}>
 				<Text style={styles.cardText}>{title}</Text>
 				<Text style={[styles.cardText],{color:grey,fontSize:13}}>{`${numberOfCards} cards`}</Text>
-			</View>
+			</TouchableOpacity>
 }
 
 
@@ -40,7 +40,7 @@ class Decks extends Component{
 
 	render(){
 
-		const {decks} = this.props
+		const {decks,navigation} = this.props
 		const keys = Object.keys(decks)
 
 		//getDecks().then(res => console.log("storage",res))
@@ -55,7 +55,7 @@ class Decks extends Component{
 			<View style={styles.container}>
 				
 				{keys.length === 0 && <NoDecks/>}
-				{keys.length !== 0 && keys.map(key => <DeckCard key={key} title={decks[key].title} numberOfCards={decks[key].questions.length}/>)}
+				{keys.length !== 0 && keys.map(key => <DeckCard key={key} id={key} title={decks[key].title} navigation={navigation} numberOfCards={decks[key].questions.length}/>)}
 				
 			</View>
 			)
