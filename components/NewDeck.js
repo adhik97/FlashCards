@@ -72,7 +72,7 @@ class NewCard extends Component {
 				<TouchableOpacity
 			      style={[styles.submitBtn,{borderRadius:Platform.OS === 'ios' ? 7 : 2}]}
 			      onPress={() => this.onPress()}>
-			        <Text style={styles.submitBtnText}>SUBMIT</Text>
+			        <Text style={styles.submitBtnText}>Submit</Text>
 			    </TouchableOpacity>
 			    {isEmpty && <Text style={{color:red}}>Please don't leave the field blank</Text>}
 

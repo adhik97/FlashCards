@@ -78,7 +78,7 @@ class Quiz extends Component {
 						<TouchableOpacity
 					      style={[styles.Btn,{borderRadius:Platform.OS === 'ios' ? 7 : 2,backgroundColor:red}]}
 					      onPress={() => this.BtnPressed('wrong')}>
-					        <Text style={styles.BtnText}>Wrong</Text>
+					        <Text style={styles.BtnText}>Incorrect</Text>
 					    </TouchableOpacity>
 					 </View>}
 				</View>

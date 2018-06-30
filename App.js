@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform } from 'react-native'
+import { View,Platform,StatusBar } from 'react-native'
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
@@ -11,8 +11,16 @@ import {createStore} from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import {white,black,grey} from './utils/colors'
+import { Constants } from 'expo'
+import { setLocalNotification,clearLocalNotification } from './utils/helpers'
 
-
+function CustomStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
 
 
 const TabCreator = Platform.OS === 'ios' ? createBottomTabNavigator : createMaterialTopTabNavigator
@@ -84,11 +92,19 @@ const MainNavigator=createStackNavigator({
 
 
 export default class App extends React.Component {
+  componentDidMount(){
+    clearLocalNotification()
+        .then(setLocalNotification)
+  }
+
   render() {
 
     return (
     <Provider store={createStore(reducer)}>
+    <View style={{flex:1}}>
+      <CustomStatusBar backgroundColor={black} barStyle="light-content"/>
       <MainNavigator/>
+    </View>
     </Provider>
           )
   }
