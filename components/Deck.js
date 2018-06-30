@@ -18,13 +18,13 @@ class Deck extends Component {
     	noQuestions:false
     }
 
-    startQuizBtn(){
-    	const {Deck} = this.props
+    startQuizBtn(id){
+    	const {Deck,navigation} = this.props
 
     	if(Deck.questions.length === 0)
     		this.setState({noQuestions:true})
-
-    	// Navigatie to QUIZ
+    	else
+    		navigation.navigate('Quiz',{id})
     }
 
     addCardBtn(id){
@@ -32,6 +32,8 @@ class Deck extends Component {
     		const {navigation} = this.props
 
     		navigation.navigate('AddCard',{id})
+
+    		this.setState({noQuestions:false})
     		
     }
 	
@@ -51,7 +53,7 @@ class Deck extends Component {
 			    </TouchableOpacity>
 				<TouchableOpacity
 			      style={[styles.Btn,{borderRadius:Platform.OS === 'ios' ? 7 : 2}]}
-			      onPress={() => this.startQuizBtn()}>
+			      onPress={() => this.startQuizBtn(id)}>
 			        <Text style={styles.BtnText}>Start Quiz</Text>
 			    </TouchableOpacity>
 			    {noQuestions && <Text style={{color:red,textAlign:'center'}}>Please add cards to the deck before you start the quiz</Text>}

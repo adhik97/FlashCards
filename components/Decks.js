@@ -1,14 +1,10 @@
 import React,{ Component } from 'react'
-import { View,Text,StyleSheet,Platform,TouchableOpacity } from 'react-native'
+import { View,Text,StyleSheet,Platform,TouchableOpacity,ScrollView } from 'react-native'
 import { black,grey } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
 import { getDecksAction } from '../actions'
-
-//import { AsyncStorage } from 'react-native'
-
-//const DECKS_STORAGE_KEY = 'FlashCards:decks'
 
 
 function NoDecks(){
@@ -17,9 +13,6 @@ function NoDecks(){
 					<Text style={{fontSize:20}}>No Decks found</Text>
 			</View>
 }
-
-
-
 
 
 function DeckCard({id,title,numberOfCards,navigation}){
@@ -43,21 +36,13 @@ class Decks extends Component{
 		const {decks,navigation} = this.props
 		const keys = Object.keys(decks)
 
-		//getDecks().then(res => console.log("storage",res))
-		//console.log("decks",decks)
-
-		//AsyncStorage.clear()
-
-		
-
-
 		return(
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				
 				{keys.length === 0 && <NoDecks/>}
 				{keys.length !== 0 && keys.map(key => <DeckCard key={key} id={key} title={decks[key].title} navigation={navigation} numberOfCards={decks[key].questions.length}/>)}
 				
-			</View>
+			</ScrollView>
 			)
 
 	}

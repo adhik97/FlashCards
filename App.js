@@ -4,6 +4,7 @@ import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
 import AddCard from './components/AddCard'
+import Quiz from './components/Quiz'
 import { createBottomTabNavigator,createMaterialTopTabNavigator,createStackNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 import {createStore} from 'redux'
@@ -52,6 +53,13 @@ const Tabs = TabCreator({
   }
 })
 
+const stackNavigationOptions={
+  headerTintColor:Platform.OS === 'ios' ? black : white,
+  headerStyle:{
+    backgroundColor:Platform.OS === 'ios' ? white : black
+  }
+}
+
 const MainNavigator=createStackNavigator({
   Home:{
     screen:Tabs,
@@ -60,10 +68,16 @@ const MainNavigator=createStackNavigator({
     }
   },
   Deck:{
-    screen:Deck
+    screen:Deck,
+    navigationOptions:stackNavigationOptions
   },
   AddCard:{
-    screen:AddCard
+    screen:AddCard,
+    navigationOptions:stackNavigationOptions
+  },
+  Quiz:{
+    screen:Quiz,
+    navigationOptions:stackNavigationOptions
   }
 })
 
@@ -80,9 +94,3 @@ export default class App extends React.Component {
   }
 }
 
-/*const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  }
-}) */

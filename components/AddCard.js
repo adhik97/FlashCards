@@ -6,31 +6,31 @@ import { addCardToDeck } from '../utils/api'
 import { addCardAction } from '../actions'
 
 class AddCard extends Component {
+	static navigationOptions = () => ({	title:'Add Card' })
 
 	state={
 		question:'',
 		answer:'',
 		isEmpty:false,
-		borderColor:grey,
-		borderWidth:1
+		questionfocus:false,
+		answerFocus:false
 	}
 
 	onChangeQuestion=(question)=>this.setState({question})
 
 	onChangeAnswer=(answer)=>this.setState({answer})
 
-	onFocus(){
+	onFocus(key){
 		this.setState({
-			borderColor:black,
-			borderWidth:3
+			[key]:true
 		})
 	}
 
-	onBlur(){
+	onBlur(key){
 		this.setState({
-			borderColor:grey,
-			borderWidth:1
+			[key]:false
 		})
+
 	}
 
 	onSubmitPressed(){
@@ -60,26 +60,28 @@ class AddCard extends Component {
 
 	render(){
 
-		const {borderColor,borderWidth,question,answer,isEmpty} = this.state
+		const {question,answer,isEmpty,questionfocus,answerFocus} = this.state
 
 		return (
 			<View style={styles.container}>
-				<View style={[styles.inputView,{borderColor,borderWidth}]}>
+				<View style={[styles.inputView,questionfocus ? styles.Focus : styles.Blur]}>
 					<TextInput
 						value={question}
 						style={styles.inputText}
 						underlineColorAndroid="transparent"
 						placeholder="Enter the question"
-						onFocus={() => this.onFocus()}
+						onFocus={() => this.onFocus('questionfocus')}
+						onBlur={() => this.onBlur('questionfocus')}
 						onChangeText={this.onChangeQuestion}/>
 				</View>
-				<View style={[styles.inputView,{borderColor,borderWidth}]}>
+				<View style={[styles.inputView,answerFocus ? styles.Focus : styles.Blur]}>
 					<TextInput
 						value={answer}
 						style={styles.inputText}
 						underlineColorAndroid="transparent"
 						placeholder="Enter the answer"
-						onFocus={() => this.onFocus()}
+						onFocus={() => this.onFocus('answerFocus')}
+						onBlur={() => this.onBlur('answerFocus')}
 						onChangeText={this.onChangeAnswer}/>
 				</View>
 				<TouchableOpacity
@@ -132,6 +134,14 @@ const styles=StyleSheet.create({
     color: white,
     fontSize: 22,
     textAlign: 'center',
+  },
+  Focus:{
+  	borderColor:black,
+	borderWidth:3
+  },
+  Blur:{
+  	borderColor:grey,
+	borderWidth:1
   }
 })
 

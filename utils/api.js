@@ -4,11 +4,9 @@ const DECKS_STORAGE_KEY = 'FlashCards:decksCheck'
 
 export function getDecks(){
 
- //AsyncStorage.clear()
-
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
-      console.log("storage",JSON.parse(results))
+
       return results === null
         ? {} : JSON.parse(results)
     })
