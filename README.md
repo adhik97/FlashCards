@@ -16,7 +16,7 @@ A mobile application which was made using react-native that allows users to stud
 
 ### Tested Devices 
 - #### Android
-	-  ** Redmi Note 5 Pro:** 
+	-  **Redmi Note 5 Pro:** 
 		- Resolution:	1080 x 2160 pixels, 18:9 ratio
 		- Version: 7.1.1
 
