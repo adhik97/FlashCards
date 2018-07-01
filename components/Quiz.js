@@ -2,7 +2,7 @@ import React,{ Component } from 'react'
 import { View,Text,StyleSheet,TouchableOpacity,Platform } from 'react-native'
 import { connect } from 'react-redux'
 import QuizCard from './QuizCard'
-import { red,green,white,grey } from '../utils/colors'
+import { red,green,white,grey,black } from '../utils/colors'
 
 class Quiz extends Component {
 	static navigationOptions = () => ({	title:'Quiz' })
@@ -54,20 +54,44 @@ class Quiz extends Component {
 		}
 	}
 
+	restartQuiz = () => {
+
+		this.setState ({
+			questionNumber:0,
+			score:0,
+			data:this.props.questions[0],
+			showScore:false
+		})
+	}
+
 
 
 	render(){
 
 		const {questionNumber,data,showScore,score} = this.state
-		const {totalQuestions} = this.props
+		const {totalQuestions,navigation} = this.props
 
 		return (
 				<View style={styles.container}>
 					{showScore===false && <Text style={styles.noOfQsnTexts}>{questionNumber+1}/{totalQuestions}</Text>}
 					{data && <QuizCard data={data}/>}
 					{showScore && <View style={styles.scoreView}>
+										<View>
 										<Text style={styles.scoreTitle}>{Math.round(score/totalQuestions*100)}%</Text>
 										<Text style={styles.scoreDetail}>{score} out of {totalQuestions} were correct</Text>
+										</View>
+										<View style={{marginBottom:50}}>
+											<TouchableOpacity
+										      style={[styles.Btn,{borderRadius:Platform.OS === 'ios' ? 7 : 2,backgroundColor:white,borderWidth:2}]}
+										      onPress={this.restartQuiz}>
+										        <Text style={[styles.BtnText,{color:black}]}>Restart Quiz</Text>
+										    </TouchableOpacity>
+											<TouchableOpacity
+										      style={[styles.Btn,{borderRadius:Platform.OS === 'ios' ? 7 : 2,backgroundColor:black}]}
+										      onPress={() => navigation.goBack()}>
+										        <Text style={styles.BtnText}>Back to deck</Text>
+										    </TouchableOpacity>
+										 </View>
 								  </View>}
 					{showScore===false && <View style={{marginBottom:50}}>
 						<TouchableOpacity
@@ -124,10 +148,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   scoreView:{
+  	flex:1,
   	margin:40,
-  	marginTop:200,
   	alignItems:'center',
-  	justifyContent:'center'
+  	justifyContent:'space-around'
   },
   scoreTitle:{
   	fontSize:100,

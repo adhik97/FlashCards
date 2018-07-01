@@ -100,7 +100,7 @@ const styles=StyleSheet.create({
     padding: 20,
     height: 60,
     width:250,
-    marginTop:75,
+    marginTop:5,
     marginLeft: 40,
     marginRight: 40,
     marginBottom:5,

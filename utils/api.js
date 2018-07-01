@@ -35,8 +35,6 @@ export function addCardToDeck(key,card){
 		const newDB = JSON.parse(res)
 		newDB[key].questions.push(card)
 
-		console.log("newDB",newDB)
-
 		return AsyncStorage.setItem(DECKS_STORAGE_KEY,JSON.stringify(newDB))
 				.catch(err => console.error("API addCardToDeck storing",err))
 	})

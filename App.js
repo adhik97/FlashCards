@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ Component } from 'react'
 import { View,Platform,StatusBar } from 'react-native'
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
@@ -91,7 +91,7 @@ const MainNavigator=createStackNavigator({
 
 
 
-export default class App extends React.Component {
+export default class App extends Component {
   componentDidMount(){
     clearLocalNotification()
         .then(setLocalNotification)

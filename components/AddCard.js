@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { View,Text,StyleSheet,TextInput,TouchableOpacity,Platform } from 'react-native'
+import { View,Text,StyleSheet,TextInput,TouchableOpacity,Platform,KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { black,white,grey,red } from '../utils/colors'
 import { addCardToDeck } from '../utils/api'
@@ -63,7 +63,7 @@ class AddCard extends Component {
 		const {question,answer,isEmpty,questionfocus,answerFocus} = this.state
 
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior="padding">
 				<View style={[styles.inputView,questionfocus ? styles.Focus : styles.Blur]}>
 					<TextInput
 						value={question}
@@ -87,10 +87,10 @@ class AddCard extends Component {
 				<TouchableOpacity
 			      style={[styles.submitBtn,{borderRadius:Platform.OS === 'ios' ? 7 : 2}]}
 			      onPress={() => this.onSubmitPressed()}>
-			        <Text style={styles.submitBtnText}>Submit</Text>
+			        <Text style={styles.submitBtnText}>Add Card</Text>
 			    </TouchableOpacity>
 			    {isEmpty && <Text style={{color:red}}>Fill all the fields</Text>}
-			</View>
+			</KeyboardAvoidingView>
 
 			)
 	}
@@ -101,10 +101,10 @@ const styles=StyleSheet.create({
 		flex:1,
 		alignItems:'center',
 		padding:30,
-		paddingTop:100
+		paddingTop:100,
+		justifyContent:'space-evenly'
 	},
 	inputView:{
-		marginTop:75,
 		height: 50,
 		minWidth:300, 
 		borderWidth: 1,
@@ -123,10 +123,8 @@ const styles=StyleSheet.create({
     padding: 20,
     height: 45,
     width:200,
-    marginTop:75,
     marginLeft: 40,
     marginRight: 40,
-    marginBottom:40,
     alignItems:'center',
     justifyContent:'center'
   	},
